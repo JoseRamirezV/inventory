@@ -6,7 +6,7 @@ export default function Dashboard() {
   return (
     <>
       <NavBar />
-      <main className='flex h-full bg-blue-200'>
+      <main className='flex h-full'>
         <SideMenu/>
         <Outlet />
       </main>
