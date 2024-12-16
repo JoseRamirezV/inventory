@@ -1,10 +1,34 @@
-import { useProducts } from '@/hooks/useProducts';
-import { BiPencil } from 'react-icons/bi';
 import { IoMdAdd } from 'react-icons/io';
 import { MdDeleteOutline } from 'react-icons/md';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+import { useProducts } from '@/hooks/useProducts';
+import { Product } from '@/interfaces/product';
+import { ProductForm } from './ProductForm';
+import { ProductList } from './ProductList';
 
 export default function Inventory() {
-  const { products } = useProducts();
+  const { products, addProduct, updateProduct, deleteProduct } = useProducts();
+  const MySwal = withReactContent(Swal);
+
+  const handleAdd = () => {
+    MySwal.fire({
+      html: <ProductForm save={addProduct} />,
+      showConfirmButton: false,
+    });
+  };
+
+  const handleUpdate = (product: Product) => {
+    MySwal.fire({
+      html: <ProductForm product={product} save={updateProduct} />,
+      showConfirmButton: false,
+    });
+  };
+
+  const handleDelete = (id: string) => {
+    deleteProduct(id);
+  };
 
   return (
     <div className='flex flex-col size-full p-10 text-slate-700'>
@@ -18,7 +42,10 @@ export default function Inventory() {
             </button>
           </li>
           <li>
-            <button className='px-3 py-1 bg-blue-500 rounded-md text-white flex items-center gap-1'>
+            <button
+              className='px-3 py-1 bg-slate-600 rounded-md text-white flex items-center gap-1 hover:bg-slate-700 transition-colors'
+              onClick={handleAdd}
+            >
               <IoMdAdd className='size-5' />
               <span className='pe-1'>Agregar</span>
             </button>
@@ -26,45 +53,11 @@ export default function Inventory() {
         </ul>
       </header>
       <main className='h-full mt-5'>
-        <table className='w-full table-auto pb-10'>
-          <thead>
-            <tr className='border-b border-b-neutral-400/80 [&>*]:font-medium [&>*]:ps-2'>
-              <th>#</th>
-              <th>Producto</th>
-              <th>Descripción</th>
-              <th>Cantidad</th>
-              <th>Precio</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.length > 0 &&
-              products.map(
-                ({ _id, item, description, price, inStock  }, i) => (
-                  <tr
-                    key={_id}
-                    className='[&>*]:py-2 [&>*]:ps-2 border-b [&>*]:text-center'
-                  >
-                    <td>{i+1}</td>
-                    <td>{item}</td>
-                    <td className='max-w-96'>
-                      <p className='line-clamp-1'>{description}</p>
-                    </td>
-                    <td>{inStock}</td>
-                    <td>$ {price}</td>
-                    <td className='flex justify-center gap-2'>
-                      <button className='p-1.5 bg-orange-500 rounded-md text-white hover:bg-orange-600 transition-colors'>
-                        <BiPencil className='size-5' />
-                      </button>
-                      <button className='p-1.5 bg-red-500 rounded-md text-white hover:bg-red-600 transition-colors'>
-                        <MdDeleteOutline className='size-5' />
-                      </button>
-                    </td>
-                  </tr>
-                )
-              )}
-          </tbody>
-        </table>
+        <ProductList
+          products={products}
+          handleUpdate={handleUpdate}
+          handleDelete={handleDelete}
+        />
       </main>
     </div>
   );

@@ -1,7 +1,9 @@
 import type { Product } from '@/interfaces/product';
 import {
   addProductsService,
+  deleteProductService,
   getProductsService,
+  updateProductsService,
 } from '@/services/products.service';
 import { useEffect, useState } from 'react';
 
@@ -10,7 +12,7 @@ export const useProducts = () => {
 
   useEffect(() => {
     getProducts();
-  });
+  }, []);
 
   const getProducts = async () => {
     const { ok, products } = await getProductsService();
@@ -20,13 +22,36 @@ export const useProducts = () => {
 
   const addProduct = async (product: Product) => {
     const { ok, product: newProduct } = await addProductsService(product);
-    if (!ok || !newProduct) return;
-    setProducts([...(products ?? []), newProduct]);
+    if (!ok) return;
+    setProducts([...(products ?? []), {...newProduct}]);
   };
 
-  const deleteProduct = async () => {};
+  const deleteProduct = async (id: string) => {
+    const { ok } = await deleteProductService(id);
+    if (!ok) return;
+    const index = products.findIndex((p) => p._id === id);
+    const updatedProductList = [
+      ...products.slice(0, index),
+      ...products.slice(index + 1),
+    ];
+    setProducts(updatedProductList);
+  };
 
-  const updateProduct = async () => {};
+  const updateProduct = async (product: Product, id: string) => {
+    const { ok, product: updatedProduct } = await updateProductsService(
+      product,
+      id
+    );
+    if (!ok) return;
+    const index = products.findIndex((p) => p._id === id);
+    console.log(updatedProduct);
+    const updatedProductList = [
+      ...products.slice(0, index),
+      { ...updatedProduct },
+      ...products.slice(index + 1),
+    ];
+    setProducts(updatedProductList);
+  };
 
   return {
     products,
