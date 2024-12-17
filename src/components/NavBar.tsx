@@ -2,8 +2,8 @@ import { AiFillNotification, AiOutlineLogout } from 'react-icons/ai';
 
 export default function NavBar() {
   return (
-    <header className='h-20 bg-slate-700 ps-8 pr-10'>
-      <nav className='flex items-center justify-between h-full'>
+    <header className='bg-slate-700 ps-8 pr-10'>
+      <nav className='flex items-center justify-between h-16'>
         <span>Logo</span>
         <ul className='flex gap-5'>
           <li>

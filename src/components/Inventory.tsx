@@ -31,7 +31,7 @@ export default function Inventory() {
   };
 
   return (
-    <div className='flex flex-col size-full p-10 text-slate-700'>
+    <div className='flex flex-col size-full p-10 pt-4 text-slate-700'>
       <header className='flex justify-between px-5 py-1'>
         <h2 className='text-2xl'>Inventario</h2>
         <ul className='flex gap-2'>
@@ -52,7 +52,7 @@ export default function Inventory() {
           </li>
         </ul>
       </header>
-      <main className='h-full mt-5'>
+      <main className='h-3/4 mt-5 overflow-auto scrollbar-thin'>
         <ProductList
           products={products}
           handleUpdate={handleUpdate}

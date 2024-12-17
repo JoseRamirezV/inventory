@@ -12,10 +12,26 @@
   }
 }
 
+@layer utilities {
+  .scrollbar-thin {
+    &::-webkit-scrollbar{
+      width: 1rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      border: 3px solid;
+      @apply border-gray-300 rounded-full bg-gray-500
+    }
+    &::-webkit-scrollbar-track {
+      @apply bg-gray-200 rounded-full
+    }
+  }
+}
+
 :root {
   font-family: 'Source Sans 3', sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  overflow: hidden;
 
   /* color-scheme: light dark; */
   color: rgba(255, 255, 255, 0.87);
@@ -25,4 +41,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body, html {
+  overflow: hidden;
 }

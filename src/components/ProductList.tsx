@@ -10,7 +10,7 @@ interface Props {
 
 export function ProductList({ products, handleUpdate, handleDelete }: Props) {
   return (
-    <table className='w-full table-fixed pb-10'>
+    <table className='w-full table-fixed pb-10 overflow-auto'>
       <thead>
         <tr className='border-b border-b-neutral-400/80 [&>*]:font-medium [&>*]:ps-2'>
           <th className='w-[5%]'>#</th>
@@ -26,7 +26,14 @@ export function ProductList({ products, handleUpdate, handleDelete }: Props) {
           products.map((product, i) => (
             <tr
               key={product._id}
-              className='[&>*]:py-2 [&>*]:ps-2 border-b [&>*]:text-center w-full'
+              className={`[&>*]:py-2 [&>*]:ps-2 border-b [&>*]:text-center w-full 
+                ${!product.inStock ? 'bg-red-200' : ''}
+                ${
+                  +product.inStock < 10 && +product.inStock > 0
+                    ? 'bg-amber-100'
+                    : ''
+                }
+                `}
             >
               <td>{i + 1}</td>
               <td>{product.item}</td>
@@ -34,7 +41,9 @@ export function ProductList({ products, handleUpdate, handleDelete }: Props) {
                 <p className='line-clamp-1'>{product.description}</p>
               </td>
               <td>{product.inStock}</td>
-              <td>$ {new Intl.NumberFormat('en-IN').format(Number(product.price))}</td>
+              <td>
+                $ {new Intl.NumberFormat('en-IN').format(Number(product.price))}
+              </td>
               <td className='flex justify-center gap-2'>
                 <button
                   className='p-1.5 bg-orange-500 rounded-md text-white hover:bg-orange-600 transition-colors'
