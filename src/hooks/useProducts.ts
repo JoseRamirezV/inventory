@@ -1,3 +1,4 @@
+import { AuthContext } from '@/context/AuthContext';
 import type { Product } from '@/interfaces/product';
 import {
   addProductsService,
@@ -5,10 +6,11 @@ import {
   getProductsService,
   updateProductsService,
 } from '@/services/products.service';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  useContext(AuthContext)
 
   useEffect(() => {
     getProducts();

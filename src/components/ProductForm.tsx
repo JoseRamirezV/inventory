@@ -1,5 +1,6 @@
 import { Product } from '@/interfaces/product';
 import Swal from 'sweetalert2';
+import categories from '@/categories.json'
 
 interface Props {
   product?: Product;
@@ -56,7 +57,9 @@ export function ProductForm({ product, save }: Props) {
             required
           >
             <option value=''>Seleccione...</option>
-            <option value='Limpieza'>Limpieza y aseo</option>
+            {categories.sort().map((category, i) => (
+              <option key={`${category}-${i+1}`} value={category}>{category}</option>
+            ))}
           </select>
         </label>
       </div>

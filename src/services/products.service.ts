@@ -1,10 +1,16 @@
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/products/`;
 import { Product } from '@/interfaces/product';
 // import products from '@/mock-data.json';
 
+const getToken = () => window.localStorage.getItem('token');
+
 export async function getProductsService() {
   try {
-    const res = await fetch(BASE_URL);
+    const res = await fetch(BASE_URL, {
+      headers: {
+        authorization: `Bearer ${getToken()}`,
+      },
+    });
     const products = await res.json();
     return { ok: true, products };
   } catch (error) {
@@ -18,6 +24,7 @@ export async function addProductsService(product: Product) {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${getToken()}`,
       },
       body: JSON.stringify(product),
     });
@@ -33,6 +40,7 @@ export async function updateProductsService(product: Product, id: string) {
       method: 'put',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${getToken()}`,
       },
       body: JSON.stringify(product),
     });
@@ -46,6 +54,9 @@ export async function deleteProductService(id: string) {
   try {
     const res = await fetch(`${BASE_URL}/${id}`, {
       method: 'delete',
+      headers: {
+        authorization: `Bearer ${getToken()}`,
+      },
     });
     return await res.json();
   } catch (error) {
