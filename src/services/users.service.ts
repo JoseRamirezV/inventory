@@ -6,7 +6,11 @@ const getToken = () => window.localStorage.getItem('token');
 
 export const login = async (email: string, password: string) => {
   try {
-    const res = await fetch(`${BASE_URL}/${email}&${password}`);
+    const res = await fetch(`${BASE_URL}/${email}&${password}`,{
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
     if (!res) throw new Error('No pudimos conectar con el servidor');
     const { user, error, token } = await res.json();
     if (error) throw new Error(error);
@@ -24,6 +28,7 @@ export const signUp = async (data: NewUser) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify({
         ...data,
@@ -40,7 +45,11 @@ export const signUp = async (data: NewUser) => {
 
 export const verifyToken = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/isLogged/${getToken()}`);
+    const res = await fetch(`${BASE_URL}/isLogged/${getToken()}`,{
+      headers: {
+        
+      }
+    });
     if (res.status === 401) throw new Error('Acceso no autorizado');
     if (!res.ok) throw new Error('No pudimos conectar con el servidor');
     return await res.json();

@@ -9,6 +9,7 @@ export async function getProductsService() {
     const res = await fetch(BASE_URL, {
       headers: {
         authorization: `Bearer ${getToken()}`,
+        'Access-Control-Allow-Origin': '*',
       },
     });
     const products = await res.json();
@@ -25,6 +26,7 @@ export async function addProductsService(product: Product) {
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${getToken()}`,
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify(product),
     });
@@ -41,6 +43,7 @@ export async function updateProductsService(product: Product, id: string) {
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${getToken()}`,
+        'Access-Control-Allow-Origin': '*',
       },
       body: JSON.stringify(product),
     });
@@ -56,6 +59,7 @@ export async function deleteProductService(id: string) {
       method: 'delete',
       headers: {
         authorization: `Bearer ${getToken()}`,
+        'Access-Control-Allow-Origin': '*',
       },
     });
     return await res.json();
