@@ -1,4 +1,4 @@
-import { Product } from '@/interfaces/product';
+import { Product } from '@/Dashboard/interfaces/product';
 import { BiPencil } from 'react-icons/bi';
 import { MdDeleteOutline } from 'react-icons/md';
 

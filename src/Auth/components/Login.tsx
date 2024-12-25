@@ -1,4 +1,4 @@
-import { useLogin } from '@/hooks/useLogIn';
+import { useUser } from '@/Auth/hooks/useUser';
 import { FormEvent, useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router';
@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const { authenticateUser } = useLogin();
+  const { signin } = useUser();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,7 +15,7 @@ export default function Login() {
       new window.FormData(form)
     ) as { email: string; password: string };
     setIsLoading(true);
-    authenticateUser(email, password).finally(() => setIsLoading(false));
+    signin(email, password).finally(() => setIsLoading(false));
   };
 
   return (
@@ -31,7 +31,7 @@ export default function Login() {
         <input
           type='email'
           name='email'
-          className='px-3 py-1 shadow focus:outline-none rounded-lg'
+          className='px-3 py-1.5 shadow focus:outline-none rounded-lg'
           required
         />
       </label>
@@ -41,7 +41,7 @@ export default function Login() {
           <input
             type={showPassword ? 'text' : 'password'}
             name='password'
-            className='px-3 py-1 shadow w-full focus:outline-none rounded-lg peer'
+            className='px-3 py-1.5 shadow w-full focus:outline-none rounded-lg peer'
             required
           />
           <button

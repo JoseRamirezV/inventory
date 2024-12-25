@@ -1,5 +1,5 @@
 const BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/products/`;
-import { Product } from '@/interfaces/product';
+import { Product } from '@/Dashboard/interfaces/product';
 // import products from '@/mock-data.json';
 
 const getToken = () => window.localStorage.getItem('token');

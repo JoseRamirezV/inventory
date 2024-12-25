@@ -1,19 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '@/context/AuthContext';
-import { login as loginService, signUp } from '@/services/users.service';
-
-import { toast } from 'sonner';
 import { useNavigate } from 'react-router';
+import { toast } from 'sonner';
 
-export interface NewUser {
-  name: string;
-  email: string;
-  phone: string;
-  password: string;
-  password2: string;
-}
+import type { NewUser } from '@/Auth/interfaces/userSession';
+import { login as loginService, signUp } from '@/Auth/services/users.service';
+import { AuthContext } from '@/Auth/context/AuthContext';
 
-export function useLogin() {
+export function useUser() {
   const [error, setError] = useState<string | null>(null);
   const { login } = useContext(AuthContext);
 
@@ -29,7 +22,7 @@ export function useLogin() {
     };
   }, [error]);
 
-  const authenticateUser = async (email: string, password: string) => {
+  const signin = async (email: string, password: string) => {
     const { userData, error } = await loginService(email, password);
     if (error) {
       setError(error);
@@ -39,7 +32,7 @@ export function useLogin() {
       ...userData,
       isLogged: true,
     });
-    navigate('/dashboard')
+    navigate('/dashboard');
   };
 
   const createUser = async (data: NewUser) => {
@@ -63,7 +56,7 @@ export function useLogin() {
   };
 
   return {
-    authenticateUser,
+    signin,
     createUser,
   };
 }

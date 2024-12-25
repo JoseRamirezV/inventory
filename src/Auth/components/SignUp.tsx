@@ -1,7 +1,9 @@
-import { NewUser, useLogin } from '@/hooks/useLogIn';
-import { FormEvent, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router';
+
+import { useUser } from '@/Auth/hooks/useUser';
+import type { NewUser } from '@/Auth/interfaces/userSession';
 
 export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,7 +11,7 @@ export default function SignUp() {
     password: false,
     verification: false,
   });
-  const { createUser } = useLogin();
+  const { createUser } = useUser();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

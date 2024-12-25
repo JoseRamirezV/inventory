@@ -1,10 +1,10 @@
-import { AuthContext } from '@/context/AuthContext';
+import { AuthContext } from '@/Auth/context/AuthContext';
 import { useContext } from 'react';
 import { AiFillNotification, AiOutlineLogout } from 'react-icons/ai';
 import { useNavigate } from 'react-router';
 
 export default function NavBar() {
-  const { logout, name } = useContext(AuthContext);
+  const { logout, session } = useContext(AuthContext);
   const navigate = useNavigate();
   const signOut = () => {
     logout();
@@ -21,7 +21,7 @@ export default function NavBar() {
             <AiFillNotification className='size-5' />
           </li>
           <li className='flex group items-center size-5 w-fit gap-2 bg-slate-600 rounded-lg px-2 py-4'>
-            <span className='text-lg'>{name}</span>
+            <span className='text-lg'>{session.name}</span>
             <button
               className='group-hover:text-red-500 transition-colors'
               onClick={signOut}

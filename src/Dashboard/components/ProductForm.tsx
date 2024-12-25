@@ -1,4 +1,4 @@
-import { Product } from '@/interfaces/product';
+import type { Product } from '@/Dashboard/interfaces/product';
 import Swal from 'sweetalert2';
 import categories from '@/categories.json'
 

@@ -1,11 +1,11 @@
-import { AuthContext } from '@/context/AuthContext';
-import type { Product } from '@/interfaces/product';
+import { AuthContext } from '@/Auth/context/AuthContext';
+import type { Product } from '@/Dashboard/interfaces/product';
 import {
   addProductsService,
   deleteProductService,
   getProductsService,
   updateProductsService,
-} from '@/services/products.service';
+} from '@/Dashboard/services/products.service';
 import { useContext, useEffect, useState } from 'react';
 
 export const useProducts = () => {

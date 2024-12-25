@@ -1,4 +1,4 @@
-import { NewUser } from '@/hooks/useLogIn';
+import { NewUser } from "@/Auth/interfaces/userSession";
 
 const BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/users`;
 

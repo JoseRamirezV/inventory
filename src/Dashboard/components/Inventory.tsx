@@ -3,8 +3,8 @@ import { MdDeleteOutline } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-import { useProducts } from '@/hooks/useProducts';
-import { Product } from '@/interfaces/product';
+import { useProducts } from '@/Dashboard/hooks/useProducts';
+import { Product } from '@/Dashboard/interfaces/product';
 import { ProductForm } from './ProductForm';
 import { ProductList } from './ProductList';
 

@@ -1,12 +1,14 @@
-import Dashboard from '@/pages/Dashboard';
 import { HashRouter, Navigate, Route, Routes } from 'react-router';
-import Inventory from './components/Inventory';
-import Auth from '@/pages/Auth';
-import Login from '@/components/Login';
-import SignUp from '@/components/SignUp';
-// import Guard from '@/utils/Guard';
-import { AuthContextProvider } from './context/AuthContext';
-import Profile from '@/pages/Profile';
+
+import Login from '@/Auth/components/Login';
+import SignUp from '@/Auth/components/SignUp';
+import Auth from '@/Auth/pages/Auth';
+import Guard from '@/utils/Guard';
+import AuthContextProvider from '@/Auth/context/AuthContext';
+
+import Inventory from '@/Dashboard/components/Inventory';
+import Dashboard from '@/Dashboard/pages/Dashboard';
+import Profile from '@/Dashboard/pages/Profile';
 
 function App() {
   return (
@@ -14,17 +16,17 @@ function App() {
       <HashRouter>
         <AuthContextProvider>
           <Routes>
-            <Route path='/' element={<Navigate to={'auth'} />} />
-            {/* <Route element={<Guard />}> */}
+            <Route path='/' element={<Navigate to={'dashboard'} />} />
             <Route path='/auth' element={<Auth />}>
               <Route index element={<Login />} />
               <Route path='signup' element={<SignUp />} />
             </Route>
-            <Route path='/dashboard' element={<Dashboard />}>
-              <Route index element={<Inventory />} />
-              <Route path='profile' element={<Profile />} />
+            <Route element={<Guard />}>
+              <Route path='/dashboard' element={<Dashboard />}>
+                <Route index element={<Inventory />} />
+                <Route path='profile' element={<Profile />} />
+              </Route>
             </Route>
-            {/* </Route> */}
           </Routes>
         </AuthContextProvider>
       </HashRouter>
